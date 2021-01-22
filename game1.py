@@ -1,20 +1,21 @@
+import sys
+
 import pygame
 
 
 class Game:
-    def __init__(self):
-        self.screen_width = 720
-        self.screen_height = 460
-        self.red = pygame.Color('red')
-        self.green = pygame.Color('green')
-        self.black = pygame.Color('black')
-        self.white = pygame.Color('white')
-        self.brown = pygame.Color('brown')
-
-        self.fps_controller = pygame.time.Clock()
-
-        self.score = 0
-
-        self.play_surface = pygame.display.set_mode((
-            self.screen_width, self.screen_height))
-        pygame.display.set_caption('Snake')
+    def event(self, direction):
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT or event.key == ord('d'):
+                    direction = "RIGHT"
+                elif event.key == pygame.K_LEFT or event.key == ord('a'):
+                    direction = "LEFT"
+                elif event.key == pygame.K_UP or event.key == ord('w'):
+                    direction = "UP"
+                elif event.key == pygame.K_DOWN or event.key == ord('s'):
+                    direction = "DOWN"
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+        return direction
