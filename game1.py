@@ -1,7 +1,6 @@
 import os
 
 import pygame
-import time
 import random
 
 pygame.init()
@@ -106,7 +105,7 @@ def gameLoop():
 
     while not game_over:
 
-        while game_close == True:
+        while game_close:
             dis.fill(blue)
             message("You Lost! Press C-Play Again or Q-Quit", red)
             Your_score(Length_of_snake - 1)
@@ -149,9 +148,7 @@ def gameLoop():
         xf = Food.get_x(a)
         yf = Food.get_y(a)
         all_sprites.draw(dis)
-        snake_Head = []
-        snake_Head.append(x1)
-        snake_Head.append(y1)
+        snake_Head = [x1, y1]
         Head(x1, y1)
         headlist.draw(dis)
         snake_List.append(snake_Head)
@@ -202,7 +199,7 @@ class Food(pygame.sprite.Sprite):
         return self.y1
 
 
-class Head():
+class Head:
     image1 = pygame.image.load(fullname1)
 
     def __init__(self, x, y):
