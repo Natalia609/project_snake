@@ -3,6 +3,7 @@ import os
 import pygame
 import random
 
+
 pygame.init()
 
 pygame.display.set_caption('Игра Змейка')
@@ -37,8 +38,7 @@ image.set_colorkey(white)
 sprite.image = image
 sprite.rect = sprite.image.get_rect()
 
-im = pygame.image.load('Snake sprite.png')
-im.set_colorkey(white)
+im = ''
 headlist = pygame.sprite.Group()
 sprite1 = pygame.sprite.Sprite()
 fullname1 = os.path.join("Head.png")
@@ -46,14 +46,10 @@ sprite1.image1 = pygame.image.load(fullname1)
 sprite1.rect = sprite1.image1.get_rect()
 Rotation = 'Down'
 
-im1 = pygame.image.load('Head.png')
-im1.set_colorkey('black')
-im2 = pygame.image.load('HeadL.png')
-im2.set_colorkey('black')
-im3 = pygame.image.load('HeadU.png')
-im3.set_colorkey('black')
-im4 = pygame.image.load('HeadR.png')
-im4.set_colorkey('black')
+im1 = ''
+im2 = ''
+im3 = ""
+im4 = ""
 
 bodylist = pygame.sprite.Group()
 sprite2 = pygame.sprite.Sprite()
@@ -62,9 +58,52 @@ sprite2.image2 = pygame.image.load(fullname2)
 sprite2.rect = sprite2.image2.get_rect()
 
 
+def snake():
+    global im, im1, im2, im3, im4
+    im = pygame.image.load('Snake sprite.png')
+    im.set_colorkey(white)
+    im1 = pygame.image.load('Head.png')
+    im1.set_colorkey('black')
+    im2 = pygame.image.load('HeadL.png')
+    im2.set_colorkey('black')
+    im3 = pygame.image.load('HeadU.png')
+    im3.set_colorkey('black')
+    im4 = pygame.image.load('HeadR.png')
+    im4.set_colorkey('black')
+
+
+def dragon():
+    global im, im1, im2, im3, im4
+    im = pygame.image.load("dragonbody.png")
+    im.set_colorkey(white)
+    im1 = pygame.image.load('dragonhead1D.png')
+    im1.set_colorkey('black')
+    im2 = pygame.image.load('dragonhead1.png')
+    im2.set_colorkey('black')
+    im3 = pygame.image.load('dragonhead1U.png')
+    im3.set_colorkey('black')
+    im4 = pygame.image.load('dragonhead1L.png')
+    im4.set_colorkey('black')
+
+
 def Your_score(score):
     value = score_font.render("Your Score: " + str(score), True, yellow)
     dis.blit(value, [0, 0])
+
+
+def fast_speed():
+    global snake_speed
+    snake_speed = 25
+
+
+def midle_speed():
+    global snake_speed
+    snake_speed = 10
+
+
+def low_speed():
+    global snake_speed
+    snake_speed = 10
 
 
 def our_snake(snake_block, snake_list, Rotation):
@@ -88,6 +127,7 @@ def message(msg, color):
 
 
 def gameLoop():
+
     for item in all_sprites:
         item.kill()
         all_sprites.clear(dis, background)
@@ -107,9 +147,15 @@ def gameLoop():
 
     while not game_over:
 
+        dis_serf = pygame.image.load("lug.png")
+        dis_rect = dis_serf.get_rect(bottomright=(600, 400))
+        dis.blit(dis_serf, dis_rect)
+
         while game_close:
-            dis.fill(blue)
-            message("You Lost! Press C-Play Again or Q-Quit", red)
+            dis_serf = pygame.image.load("lug.png")
+            dis_rect = dis_serf.get_rect(bottomright=(600, 400))
+            dis.blit(dis_serf, dis_rect)
+            message("You Lost! Press C-Play Again or Q-Quit", yellow)
             Your_score(Length_of_snake - 1)
             pygame.display.update()
 
@@ -146,9 +192,6 @@ def gameLoop():
             game_close = True
         x1 += x1_change
         y1 += y1_change
-        dis_serf = pygame.image.load("lug.png")
-        dis_rect = dis_serf.get_rect(bottomright=(600, 400))
-        dis.blit(dis_serf, dis_rect)
         xf = Food.get_x(a)
         yf = Food.get_y(a)
         all_sprites.draw(dis)
