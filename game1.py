@@ -5,6 +5,8 @@ import random
 
 pygame.init()
 
+pygame.display.set_caption('Игра Змейка')
+
 white = (255, 255, 255)
 yellow = (255, 255, 102)
 black = (0, 0, 0)
@@ -144,7 +146,9 @@ def gameLoop():
             game_close = True
         x1 += x1_change
         y1 += y1_change
-        dis.fill(blue)
+        dis_serf = pygame.image.load("lug.png")
+        dis_rect = dis_serf.get_rect(bottomright=(600, 400))
+        dis.blit(dis_serf, dis_rect)
         xf = Food.get_x(a)
         yf = Food.get_y(a)
         all_sprites.draw(dis)
@@ -211,5 +215,3 @@ class Head:
         self.y = y
         self.rect.center = (self.x, self.y)
 
-
-gameLoop()
